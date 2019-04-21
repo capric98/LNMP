@@ -23,4 +23,4 @@ cp ${Basepath}/../Config/nginx /etc/init.d/ && ln -s /etc/init.d/nginx /etc/rc5.
 openssl  dhparam -out /usr/local/nginx/conf/dhparam.pem 2048
 sysv-rc-conf nginx on
 update-rc.d nginx defaults
-service nginx restart
+service nginx start
