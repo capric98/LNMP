@@ -7,7 +7,7 @@ if [[ $(lsb_release -a 2>/dev/null | grep Description | cut -f 2 | cut -d' ' -f1
 	echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
 fi
 
-apt update >> /dev/null
+apt-get update >> /dev/null
 apt install -y php7.2-fpm php7.2-curl
 cp ${Basepath}/../Config/enable-php.conf /usr/local/nginx/conf/
 sed -i "s/;cgi.fix_pathinfo=0/cgi.fix_pathinfo=1/g" /etc/php/7.2/fpm/php.ini
