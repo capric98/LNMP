@@ -22,10 +22,9 @@ mkdir -p /usr/local/nginx/conf/vhost
 mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
 rm -rf /usr/local/nginx/conf/nginx.conf /root/nginx-${NGINX_VER}
 cp ${Basepath}/../Config/nginx.conf /usr/local/nginx/conf/
-cp ${Basepath}/../Config/nginx /etc/init.d/ && ln -s /etc/init.d/nginx /etc/rc5.d/S01nginx
-cp ${Basepath}/../Config/fake.* /usr/local/nginx/conf/
-cp ${Basepath}/../Config/ForbidIP443.conf /usr/local/nginx/conf/vhost/
-#cp ${Basepath}/../Config/reverse.conf /usr/local/nginx/conf/vhost/
+cp ${Basepath}/../Config/nginx /etc/init.d/ #&& ln -s /etc/init.d/nginx /etc/rc5.d/S01nginx
+#cp ${Basepath}/../Config/fake.* /usr/local/nginx/conf/
+#cp ${Basepath}/../Config/ForbidIP443.conf /usr/local/nginx/conf/vhost/
 openssl dhparam -dsaparam -out /usr/local/nginx/conf/dhparam.pem 4096
 sysv-rc-conf nginx on
 update-rc.d nginx defaults
