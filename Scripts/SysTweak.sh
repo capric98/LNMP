@@ -1,6 +1,13 @@
 #!/bin/bash
 sed -i "/PS1='$/d" /root/.bashrc
+echo "TZ='Asia/Shanghai'; export TZ" >> /root/.profile
+rm -rf /etc/localtime && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 echo "PS1='\${debian_chroot:+($debian_chroot)}\[\e[1;31m\]\u\[\e[1;33m\]@\[\e[1;36m\]\h \[\e[1;33m\]\w \[\e[1;35m\]\\\$ \[\e[0m\]'" >> /root/.bashrc
+sed -i "s/\# export LS_OPTIONS='--color=auto'/export LS_OPTIONS='--color=auto'/g" /root/.bashrc
+sed -i "s/\# eval \"\`dircolors\`\"/eval \"\`dircolors\`\"/g" /root/.bashrc
+sed -i "s/\# alias ls='ls \$LS_OPTIONS'/alias ls='ls \$LS_OPTIONS'/g" /root/.bashrc
+sed -i "s/\# alias ll='ls \$LS_OPTIONS -l'/alias ll='ls \$LS_OPTIONS -l'/g" /root/.bashrc
+sed -i "s/\# alias l='ls \$LS_OPTIONS -lA'/alias l='ls \$LS_OPTIONS -lA'/g" /root/.bashrc
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
 sed -i '/fs.file-max/d' /etc/sysctl.conf
