@@ -12,9 +12,9 @@ wget --no-check-certificate http://nginx.org/download/nginx-${NGINX_VER}.tar.gz 
 cd nginx-${NGINX_VER}/
 git clone https://github.com/google/ngx_brotli.git
 cd ngx_brotli && git submodule update --init && cd ../
-wget --no-check-certificate https://github.com/openssl/openssl/archive/OpenSSL_1_1_1b.zip && unzip OpenSSL_1_1_1b.zip && rm -rf OpenSSL_1_1_1b.zip
-mv openssl-OpenSSL_1_1_1b/ openssl-1_1_1b/
-./configure --user=www --group=www --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_v2_module --with-http_gzip_static_module --with-http_sub_module --with-stream --with-stream_ssl_module --with-openssl=./openssl-1_1_1b --add-module=./ngx_brotli
+wget --no-check-certificate https://github.com/openssl/openssl/archive/OpenSSL_1_1_1c.zip && unzip OpenSSL_1_1_1c.zip && rm -rf OpenSSL_1_1_1c.zip
+mv openssl-OpenSSL_1_1_1c/ openssl-1_1_1c/
+./configure --user=www --group=www --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_v2_module --with-http_gzip_static_module --with-http_sub_module --with-stream --with-stream_ssl_module --with-openssl=./openssl-1_1_1c --add-module=./ngx_brotli
 make -j$(nproc) && make install
 ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
 
