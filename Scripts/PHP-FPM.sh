@@ -8,7 +8,7 @@ if [[ $(lsb_release -a 2>/dev/null | grep Description | cut -f 2 | cut -d' ' -f1
 fi
 
 apt-get update >> /dev/null
-apt install -y php7.2-fpm php7.2-curl
+apt install -y php7.2-fpm php7.2-curl php7.2-mbstring php7.2-mysql
 cp ${Basepath}/../Config/enable-php.conf /usr/local/nginx/conf/
 sed -i "s/;cgi.fix_pathinfo=0/cgi.fix_pathinfo=1/g" /etc/php/7.2/fpm/php.ini
 sed -i "s/user = www-data/user = www/g" /etc/php/7.2/fpm/pool.d/www.conf
