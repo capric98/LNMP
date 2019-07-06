@@ -5,4 +5,4 @@ Please make sure your system is Debian/Ubuntu and have not installed nginx/php/m
 
 
 
-Install MySQL function is not finished yet.
+Install MySQL function has not been finished yet.
