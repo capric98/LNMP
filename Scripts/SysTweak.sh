@@ -62,7 +62,9 @@ net.core.rmem_max = 12582912
 net.core.wmem_max = 12582912
 net.ipv4.tcp_rmem = 4096    524000  67110000
 net.ipv4.tcp_wmem = 4096    524000  67110000
-net.ipv4.tcp_mem = 1541547 2055396 3083094" >>/etc/sysctl.conf
+net.ipv4.tcp_mem = 1541547 2055396 3083094
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr" >>/etc/sysctl.conf
 sysctl -p
 
 apt install -y cpufrequtils
