@@ -33,15 +33,15 @@ case ${isInstallMySQL} in
     ;;
 esac
 
-Scripts/Nginx.sh
+bash Scripts/Nginx.sh
 if [ ${isInstallPHP} -eq 1 ]
 then
     echo -e "\033[44;37mStart to install php-fpm...\033[0m"
-    Scripts/PHP-FPM.sh
+    bash Scripts/PHP-FPM.sh
 fi
 if [ ${isInstallMySQL} -eq 1 ]
 then
     echo -e "\033[44;37mStart to install mysql...     \033[0m"
     echo -e "\033[44;37mThis function is not finished.\033[0m"
-    Scripts/MySQL.sh
+    bash Scripts/MySQL.sh
 fi
