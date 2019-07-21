@@ -59,7 +59,7 @@ cd LNMP
 ```
 
 ## nginx vhost样例配置文件
-./Config/Sample.config
+./Config/Sample.config:
 ```nginx
 server {
     listen 80;
