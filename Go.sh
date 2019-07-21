@@ -42,6 +42,5 @@ fi
 if [ ${isInstallMySQL} -eq 1 ]
 then
     echo -e "\033[44;37mStart to install mysql...     \033[0m"
-    echo -e "\033[44;37mThis function is not finished.\033[0m"
     bash Scripts/MySQL.sh
 fi

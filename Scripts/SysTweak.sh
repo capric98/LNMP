@@ -67,6 +67,8 @@ net.core.default_qdisc=fq
 net.ipv4.tcp_congestion_control=bbr" >>/etc/sysctl.conf
 sysctl -p
 
-apt install -y cpufrequtils
+apt-get update >> /dev/null
+apt install -y cpufrequtils vim
+echo "set mouse-=a" >> ~/.vimrc
 echo 'GOVERNOR="performance"' | tee /etc/default/cpufrequtils
 /etc/init.d/cpufrequtils restart
