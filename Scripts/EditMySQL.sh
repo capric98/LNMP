@@ -27,7 +27,7 @@ do
     echo ""
     case ${op} in
         [0])
-            return
+            exit
         ;;
         [1])
             echo -e "\033[44;37mInput the name of database:\033[0m"
