@@ -8,7 +8,6 @@ mkdir -p /usr/local/nginx
 
 apt-get update >> /dev/null
 apt install -y build-essential libpcre3 libpcre3-dev zlib1g-dev unzip git
-apt install -y sysv-rc-conf
 wget --no-check-certificate http://nginx.org/download/nginx-${NGINX_VER}.tar.gz && tar xzf nginx-${NGINX_VER}.tar.gz && rm -rf nginx-${NGINX_VER}.tar.gz
 cd nginx-${NGINX_VER}/
 git clone https://github.com/google/ngx_brotli.git
@@ -23,9 +22,10 @@ mkdir -p /usr/local/nginx/conf/vhost
 mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
 rm -rf /usr/local/nginx/conf/nginx.conf /root/nginx-${NGINX_VER}
 cp ${Basepath}/../Config/nginx.conf /usr/local/nginx/conf/
-cp ${Basepath}/../Config/nginx /etc/init.d/
+cp ${Basepath}/../Config/nginx.service /lib/systemd/system/nginx.service
 #cp ${Basepath}/../Config/fake.* /usr/local/nginx/conf/
 #cp ${Basepath}/../Config/noSNI.conf /usr/local/nginx/conf/vhost/
 openssl dhparam -dsaparam -out /usr/local/nginx/conf/dhparam.pem 4096
-sysv-rc-conf nginx on
-update-rc.d nginx defaults
+
+systemctl enable nginx.service
+service nginx restart
