@@ -11,19 +11,22 @@
 # http://nginx.org/en/docs/control.html
 #
 [Unit]
-Description=A high performance web server and a reverse proxy server.
+Description=A high performance web server and a reverse proxy server
 Documentation=man:nginx(8)
 After=network.target nss-lookup.target
 
 [Service]
 Type=forking
-PIDFile=/usr/local/nginx/logs/nginx.pid
+ExecStartPost=/bin/sleep 0.1
 ExecStartPre=/usr/sbin/nginx -t -q -g 'daemon on; master_process on;'
 ExecStart=/usr/sbin/nginx -g 'daemon on; master_process on;'
 ExecReload=/usr/sbin/nginx -g 'daemon on; master_process on;' -s reload
 ExecStop=-/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile /usr/local/nginx/logs/nginx.pid
 TimeoutStopSec=5
 KillMode=mixed
+
+PIDFile=/usr/local/nginx/logs/nginx.pid
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
