@@ -1,8 +1,8 @@
 #!/bin/bash
 Basepath=$(cd `dirname $0`; pwd)
 apt-get install -y lsb-release
-if [[ $(lsb_release -a 2>/dev/null | grep Description | cut -f 2 | cut -d' ' -f1)=="Debian" ]]; then
-	if [[ $(lsb_release -sc) -ne "buster" ]]; then
+if [[ $(lsb_release -a 2>/dev/null | grep Description | cut -f 2 | cut -d' ' -f1) == "Debian" ]]; then
+	if [[ $(lsb_release -sc) != "buster" ]]; then
 		apt-get install -y apt-transport-https ca-certificates
 		wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 		echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list

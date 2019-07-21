@@ -5,7 +5,7 @@ apt-get install -y lsb-release >> /dev/null
 # Ubuntu 18.04 default-mysql-server -> mysql5.7
 # Debian 9     default-mysql-server -> mariadb
 # Debian 10    default-mysql-server -> mariadb
-if [[ $(lsb_release -sc)=="xenial" ]]; then
+if [[ $(lsb_release -sc) == "xenial" ]]; then
     apt install -y mysql-server
 else
     apt install -y default-mysql-server
