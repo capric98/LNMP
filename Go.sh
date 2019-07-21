@@ -43,4 +43,16 @@ if [ ${isInstallMySQL} -eq 1 ]
 then
     echo -e "\033[44;37mStart to install mysql...     \033[0m"
     bash Scripts/MySQL.sh
+
+    echo -ne "\033[44;37mWould you like to edit mysql-server?(y/n)\033[0m"
+    read -n1 isEditMySQL
+    echo ""
+    case ${isEditMySQL} in
+        [yY][eE][sS]|[yY])
+        bash Scripts/EditMySQL.sh
+        ;;
+        *)
+        echo -e "\n\033[44;37mOkay~ \033[0m"
+        ;;
+    esac
 fi
