@@ -17,6 +17,7 @@ mv openssl-OpenSSL_${OpenSSL_VER}/ openssl-${OpenSSL_VER}/
 ./configure --user=www --group=www --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_v2_module --with-http_gzip_static_module --with-http_sub_module --with-stream --with-stream_ssl_module --with-openssl=./openssl-${OpenSSL_VER} --add-module=./ngx_brotli
 make -j$(nproc) && make install
 ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
+cd $(pwd)
 
 mkdir -p /usr/local/nginx/conf/vhost
 mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
