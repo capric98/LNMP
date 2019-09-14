@@ -1,21 +1,18 @@
 #!/bin/bash
 Basepath=$(cd `dirname $0`; pwd)
 NGINX_VER="1.15.12"
-OpenSSL_VER="1.1.1c"
 cd /root
 groupadd -r www && useradd -r -g www -s /sbin/nologin -d /usr/local/nginx -M www
 mkdir -p /usr/local/nginx
 
 apt-get update >> /dev/null
-apt install -y build-essential libpcre3 libpcre3-dev zlib1g-dev unzip git
+apt install -y build-essential libpcre3 libpcre3-dev zlib1g-dev unzip git libssl-dev
 wget --no-check-certificate http://nginx.org/download/nginx-${NGINX_VER}.tar.gz && tar xzf nginx-${NGINX_VER}.tar.gz && rm -rf nginx-${NGINX_VER}.tar.gz
 cd nginx-${NGINX_VER}/
 git clone https://github.com/google/ngx_brotli.git
 cd ngx_brotli && git submodule update --init && cd ../
-#wget --no-check-certificate https://github.com/openssl/openssl/archive/OpenSSL_${OpenSSL_VER}.zip && unzip OpenSSL_${OpenSSL_VER}.zip && rm -rf OpenSSL_${OpenSSL_VER}.zip
-wget --no-check-certificate https://www.openssl.org/source/openssl-${OpenSSL_VER}.tar.gz
-tar -xzvf openssl-${OpenSSL_VER}.tar.gz
-./configure --user=www --group=www --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_v2_module --with-http_gzip_static_module --with-http_sub_module --with-stream --with-stream_ssl_module --with-openssl=./openssl-${OpenSSL_VER} --add-module=./ngx_brotli
+
+./configure --user=www --group=www --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_v2_module --with-http_gzip_static_module --with-http_sub_module --with-stream --with-stream_ssl_module --add-module=./ngx_brotli
 make -j$(nproc) && make install
 ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
 cd $(pwd)
