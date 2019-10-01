@@ -27,5 +27,5 @@ cp ${Basepath}/../Config/nginx.service /lib/systemd/system/nginx.service
 openssl dhparam -dsaparam -out /usr/local/nginx/conf/dhparam.pem 4096
 
 systemctl enable nginx.service
-service nginx start
-service nginx status
+systemctl start nginx.service
+systemctl status nginx.service --no-pager
