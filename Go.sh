@@ -33,6 +33,7 @@ case ${isInstallMySQL} in
     ;;
 esac
 
+STARTTIME=$(date +%s)
 bash Scripts/Nginx.sh
 if [ ${isInstallPHP} -eq 1 ]
 then
@@ -56,3 +57,5 @@ then
         ;;
     esac
 fi
+ENDTIME=$(date +%s)
+echo "Time: $(($ENDTIME - $STARTTIME))s."
