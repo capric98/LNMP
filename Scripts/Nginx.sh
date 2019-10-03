@@ -28,4 +28,5 @@ openssl dhparam -dsaparam -out /usr/local/nginx/conf/dhparam.pem 4096
 
 systemctl enable nginx.service
 systemctl start nginx.service
+systemctl restart nginx.service
 systemctl status nginx.service --no-pager
