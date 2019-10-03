@@ -1,6 +1,6 @@
 #!/bin/bash
 Basepath=$(cd `dirname $0`; pwd)
-NGINX_VER="1.15.12"
+NGINX_VER="1.16.1"
 cd /root
 groupadd -r www && useradd -r -g www -s /sbin/nologin -d /usr/local/nginx -M www
 mkdir -p /usr/local/nginx
