@@ -6,7 +6,7 @@ groupadd -r www && useradd -r -g www -s /sbin/nologin -d /usr/local/nginx -M www
 mkdir -p /usr/local/nginx
 
 apt-get update >> /dev/null
-apt install -y build-essential libpcre3 libpcre3-dev zlib1g-dev unzip git libssl-dev
+apt install -y build-essential libpcre3 libpcre3-dev zlib1g-dev unzip git libssl-dev wget
 wget --no-check-certificate http://nginx.org/download/nginx-${NGINX_VER}.tar.gz && tar xzf nginx-${NGINX_VER}.tar.gz && rm -rf nginx-${NGINX_VER}.tar.gz
 cd nginx-${NGINX_VER}/
 git clone https://github.com/google/ngx_brotli.git
