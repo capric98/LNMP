@@ -4,6 +4,7 @@ NGINX_VER="1.16.1"
 cd /root
 groupadd -r www && useradd -r -g www -s /sbin/nologin -d /usr/local/nginx -M www
 mkdir -p /usr/local/nginx
+rm -rf /usr/sbin/nginx /sbin/nginx
 
 apt-get update >> /dev/null
 apt install -y build-essential libpcre3 libpcre3-dev zlib1g-dev unzip git libssl-dev wget
@@ -15,6 +16,7 @@ cd ngx_brotli && git submodule update --init && cd ../
 ./configure --user=www --group=www --prefix=/usr/local/nginx --with-http_stub_status_module --with-http_ssl_module --with-http_v2_module --with-http_gzip_static_module --with-http_sub_module --with-stream --with-stream_ssl_module --add-module=./ngx_brotli
 make -j$(nproc) && make install
 ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
+ln -s /usr/local/nginx/sbin/nginx /sbin/nginx
 cd $(pwd)
 
 mkdir -p /usr/local/nginx/conf/vhost
@@ -30,3 +32,16 @@ systemctl enable nginx.service
 systemctl start nginx.service
 systemctl restart nginx.service
 systemctl status nginx.service --no-pager
+
+
+echo "/usr/local/nginx/logs/*.log {
+    monthly
+    rotate 2
+    size 1m
+    compress
+    delaycompress
+    missingok
+    postrotate
+        /sbin/nginx -s reload
+    create 644 root staff
+}" > /etc/logrotate.d/nginx
