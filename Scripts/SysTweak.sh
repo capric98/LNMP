@@ -71,7 +71,7 @@ net.ipv4.tcp_congestion_control = bbr" >>/etc/sysctl.conf
 sysctl -p
 
 apt-get update >> /dev/null
-apt install -y cpufrequtils vim
+apt install -y cpufrequtils vim unattended-upgrades apt-listchanges
 echo "set mouse-=a" >> ~/.vimrc
 echo 'GOVERNOR="performance"' | tee /etc/default/cpufrequtils
 /etc/init.d/cpufrequtils restart
