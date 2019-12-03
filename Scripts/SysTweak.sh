@@ -3,6 +3,11 @@ sed -i "/PS1='$/d" ~/.bashrc
 echo "TZ='Asia/Shanghai'; export TZ" >> ~/.profile
 rm -rf /etc/localtime && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 echo "PS1='\${debian_chroot:+($debian_chroot)}\[\e[1;31m\]\u\[\e[1;33m\]@\[\e[1;36m\]\h \[\e[1;33m\]\w \[\e[1;35m\]\\\$ \[\e[0m\]'" >> ~/.bashrc
+
+mkdir -p ~/.ssh
+touch ~/.ssh/authorized_keys
+chmod -R 600 ~/.ssh
+
 sed -i "s/\# export LS_OPTIONS='--color=auto'/export LS_OPTIONS='--color=auto'/g" ~/.bashrc
 sed -i "s/\# eval \"\`dircolors\`\"/eval \"\`dircolors\`\"/g" ~/.bashrc
 sed -i "s/\# alias ls='ls \$LS_OPTIONS'/alias ls='ls \$LS_OPTIONS'/g" ~/.bashrc
