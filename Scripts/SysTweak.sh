@@ -13,6 +13,7 @@ sed -i "s/\# eval \"\`dircolors\`\"/eval \"\`dircolors\`\"/g" ~/.bashrc
 sed -i "s/\# alias ls='ls \$LS_OPTIONS'/alias ls='ls \$LS_OPTIONS'/g" ~/.bashrc
 sed -i "s/\# alias ll='ls \$LS_OPTIONS -l'/alias ll='ls \$LS_OPTIONS -l'/g" ~/.bashrc
 sed -i "s/\# alias l='ls \$LS_OPTIONS -lA'/alias l='ls \$LS_OPTIONS -lA'/g" ~/.bashrc
+sed -i '/vm.swappiness/d' /etc/sysctl.conf
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
 sed -i '/fs.file-max/d' /etc/sysctl.conf
@@ -49,7 +50,8 @@ sed -i '/net.core.netdev_max_backlog/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_timestamps/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_max_orphans/d' /etc/sysctl.conf
 sed -i '/net.ipv6.conf.all.forwarding/d' /etc/sysctl.conf
-echo "fs.file-max = 1000000
+echo "vm.swappiness = 10
+fs.file-max = 1000000
 fs.inotify.max_user_instances = 8192
 net.ipv4.ip_forward = 1
 net.ipv4.ip_local_port_range = 1024 65000
