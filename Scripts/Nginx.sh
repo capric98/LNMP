@@ -41,7 +41,6 @@ echo "/usr/local/nginx/logs/*.log {
     compress
     delaycompress
     missingok
-    postrotate
-        /sbin/nginx -s reload
-    create 644 root staff
+
+    copytruncate
 }" > /etc/logrotate.d/nginx
