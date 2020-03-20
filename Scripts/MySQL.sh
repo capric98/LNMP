@@ -1,4 +1,9 @@
 #!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
+
 apt-get update >> /dev/null
 apt-get install -y lsb-release >> /dev/null
 # Ubuntu 16.04 mysql-server         -> mysql5.7
