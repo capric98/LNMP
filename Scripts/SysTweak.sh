@@ -1,6 +1,6 @@
 #!/bin/bash
 sed -i "/PS1='$/d" ~/.bashrc
-echo "TZ='Asia/Shanghai'; export TZ" >> ~/.profile
+echo "TZ='Asia/Shanghai'; export TZ" >> ~/.bashrc
 rm -rf /etc/localtime && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 echo "PS1='\${debian_chroot:+($debian_chroot)}\[\e[1;31m\]\u\[\e[1;33m\]@\[\e[1;36m\]\h \[\e[1;33m\]\w \[\e[1;35m\]\\\$ \[\e[0m\]'" >> ~/.bashrc
 
@@ -79,6 +79,13 @@ sysctl -p
 
 apt-get update >> /dev/null
 apt install -y cpufrequtils vim unattended-upgrades apt-listchanges
-echo "set mouse-=a" >> ~/.vimrc
+echo -e "set mouse-=a
+# Code Highlighting
+syntax on
+colorscheme slate
+# Remeber Cursor
+if has(\"autocmd\")
+  au BufReadPost * if line(\"'\\\"\") > 1 && line(\"'\\\"\") <= line(\"$\") | exe \"normal! g'\\\"\" | endif
+endif" > ~/.vimrc
 echo 'GOVERNOR="performance"' | tee /etc/default/cpufrequtils
 /etc/init.d/cpufrequtils restart
