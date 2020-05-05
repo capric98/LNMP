@@ -80,10 +80,10 @@ sysctl -p
 apt-get update >> /dev/null
 apt install -y cpufrequtils vim unattended-upgrades apt-listchanges
 echo -e "set mouse-=a
-# Code Highlighting
+\" Code Highlighting
 syntax on
 colorscheme slate
-# Remeber Cursor
+\" Remeber Cursor
 if has(\"autocmd\")
   au BufReadPost * if line(\"'\\\"\") > 1 && line(\"'\\\"\") <= line(\"$\") | exe \"normal! g'\\\"\" | endif
 endif" > ~/.vimrc
