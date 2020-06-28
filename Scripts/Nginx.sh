@@ -50,7 +50,7 @@ systemctl status nginx.service --no-pager
 echo "/usr/local/nginx/logs/*.log {
     monthly
     rotate 2
-    size 1M
+    size 10M
     compress
     delaycompress
     missingok
