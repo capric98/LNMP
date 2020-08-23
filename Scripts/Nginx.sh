@@ -36,15 +36,13 @@ mkdir -p /usr/local/nginx/conf/vhost
 mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
 cp ${Basepath}/../Config/nginx.conf /usr/local/nginx/conf/
 cp ${Basepath}/../Config/nginx.service /lib/systemd/system/nginx.service
-#cp ${Basepath}/../Config/fake.* /usr/local/nginx/conf/
-#cp ${Basepath}/../Config/noSNI.conf /usr/local/nginx/conf/vhost/
 openssl dhparam -dsaparam -out /usr/local/nginx/conf/dhparam.pem 4096
 
 rm -rf /root/nginx-${NGINX_VER}
 
-systemctl enable nginx.service
+systemctl enable  nginx.service
 systemctl restart nginx.service
-systemctl status nginx.service --no-pager
+systemctl status  nginx.service --no-pager
 
 
 echo "/usr/local/nginx/logs/*.log {
