@@ -6,7 +6,8 @@ echo "PS1='\${debian_chroot:+($debian_chroot)}\[\e[1;31m\]\u\[\e[1;33m\]@\[\e[1;
 
 mkdir -p ~/.ssh
 touch ~/.ssh/authorized_keys
-chmod -R 600 ~/.ssh
+chmod 700 ~/.ssh
+chmod 644 ~/.ssh/authorized_keys
 
 sed -i "s/\# export LS_OPTIONS='--color=auto'/export LS_OPTIONS='--color=auto'/g" ~/.bashrc
 sed -i "s/\# eval \"\`dircolors\`\"/eval \"\`dircolors\`\"/g" ~/.bashrc
