@@ -5,7 +5,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 Basepath=$(cd `dirname $0`; pwd)
-NGINX_VER="1.18.0"
+NGINX_VER="1.20.1"
 cd /root
 mkdir -p /home/www
 mkdir -p /usr/local/nginx
