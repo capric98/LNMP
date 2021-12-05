@@ -7,11 +7,10 @@ fi
 NGINX_VER="1.20.2"
 OPENSSL_VER=""
 
-
+TMPDIR=$(mktemp -d)
 Basepath=$(cd `dirname $0`; pwd)
 
-
-cd /root
+cd ${TMPDIR}
 
 if ! grep -q "^${group}:" /etc/group; then
     echo 'Add group www'
@@ -101,4 +100,4 @@ fi
 
 cd $(pwd)
 
-rm -rf /root/nginx-${NGINX_VER}
+rm -rf ${TMPDIR}/nginx-${NGINX_VER}
