@@ -4,7 +4,7 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-NGINX_VER="1.20.1"
+NGINX_VER="1.20.2"
 OPENSSL_VER=""
 
 
@@ -46,7 +46,7 @@ else
     wget --no-check-certificate https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz && tar xzf openssl-${OPENSSL_VER}.tar.gz && rm -rf openssl-${OPENSSL_VER}.tar.gz
     ./configure --user=www --group=www --prefix=/usr/local/nginx \
         --with-http_stub_status_module --with-http_ssl_module --with-http_v2_module \
-        --with-http_gzip_static_module --with-http_sub_module \
+        --with-http_gzip_static_module --with-http_sub_module --with-http_realip_module \
         --with-stream --with-stream_ssl_module \
         --with-openssl=openssl-${OPENSSL_VER} \
         --add-module=./ngx_brotli
