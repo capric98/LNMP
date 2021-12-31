@@ -9,10 +9,11 @@ chmod 700 ~/.ssh
 chmod 644 ~/.ssh/authorized_keys
 
 echo -e "set mouse-=a
-\" Code Highlighting
+set number
+\" Highlighting
 syntax on
 colorscheme slate
-\" Remeber Cursor
+\" Remember Cursor
 if has(\"autocmd\")
   au BufReadPost * if line(\"'\\\"\") > 1 && line(\"'\\\"\") <= line(\"$\") | exe \"normal! g'\\\"\" | endif
 endif" > ~/.vimrc
