@@ -7,22 +7,29 @@ fi
 NGINX_VER="1.20.2"
 OPENSSL_VER=""
 
+User="www"
+Group="www"
+
+Configure_Options="--user=${User} --group=${Group} --prefix=/usr/local/nginx
+    --with-http_stub_status_module --with-http_ssl_module --with-http_v2_module
+    --with-http_gzip_static_module --with-http_sub_module --with-http_realip_module
+    --with-stream --with-stream_ssl_module"
+
 TMPDIR=$(mktemp -d)
 Basepath=$(cd `dirname $0`; pwd)
 
 cd ${TMPDIR}
 
-if ! grep -q "^${group}:" /etc/group; then
-    echo 'Add group www'
-    groupadd -r www >> /dev/null
+if [ ! $(getent group "${Group}") ]; then
+    echo "Add group ${Group}"
+    groupadd -r ${Group} >> /dev/null
 fi
-if ! id "www" &>/dev/null; then
-    echo 'Add user www'
-    useradd -r -g www -s /sbin/nologin -d /home/www -M www
-    mkdir -p /home/www
-    chown -R www:www /home/www
+if ! id "${User}" &>/dev/null; then
+    echo "Add user ${User}"
+    useradd -r -g ${Group} -s /sbin/nologin -d /home/${User} -M ${User}
+    mkdir -p /home/${User}
+    chown -R ${User}:${Group} /home/${User}
 fi
-
 
 
 apt-get update >> /dev/null
@@ -35,20 +42,11 @@ cd ngx_brotli && git submodule update --init && cd ../
 if [ -z "${OPENSSL_VER}" ]
 then
     echo "Using default libssl-dev..."
-    ./configure --user=www --group=www --prefix=/usr/local/nginx \
-        --with-http_stub_status_module --with-http_ssl_module --with-http_v2_module \
-        --with-http_gzip_static_module --with-http_sub_module \
-        --with-stream --with-stream_ssl_module \
-        --add-module=./ngx_brotli
+    ./configure ${Configure_Options} --add-module=./ngx_brotli
 else
     echo "Using Openssl ${OPENSSL_VER}..."
     wget --no-check-certificate https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz && tar xzf openssl-${OPENSSL_VER}.tar.gz && rm -rf openssl-${OPENSSL_VER}.tar.gz
-    ./configure --user=www --group=www --prefix=/usr/local/nginx \
-        --with-http_stub_status_module --with-http_ssl_module --with-http_v2_module \
-        --with-http_gzip_static_module --with-http_sub_module --with-http_realip_module \
-        --with-stream --with-stream_ssl_module \
-        --with-openssl=openssl-${OPENSSL_VER} \
-        --add-module=./ngx_brotli
+    ./configure ${Configure_Options} --with-openssl=openssl-${OPENSSL_VER} --add-module=./ngx_brotli
 fi
 
 
