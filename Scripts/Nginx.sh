@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root!"
-   exit 1
+    echo "This script must be run as root!"
+    exit 1
 fi
 
 NGINX_VER="1.20.2"
@@ -103,7 +103,7 @@ if [ -f "/usr/local/nginx/conf/nginx.conf" ]; then
     mv /usr/local/nginx/conf/nginx.conf.backup /usr/local/nginx/conf/nginx.conf
 
     nginx -t && systemctl restart nginx.service
-    systemctl status  nginx.service --no-pager
+    systemctl status nginx.service --no-pager
 else
     mkdir -p /usr/local/nginx
     rm -rf /usr/sbin/nginx /sbin/nginx
@@ -129,9 +129,9 @@ else
     copytruncate
 }" > /etc/logrotate.d/nginx
 
-    systemctl enable  nginx.service
+    systemctl enable nginx.service
     systemctl restart nginx.service
-    systemctl status  nginx.service --no-pager
+    systemctl status nginx.service --no-pager
 fi
 
 cd $(pwd)
