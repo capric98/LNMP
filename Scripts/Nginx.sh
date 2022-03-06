@@ -136,4 +136,4 @@ fi
 
 cd $(pwd)
 
-rm -rf ${TMPDIR}/nginx-${NGINX_VER}
+rm -rf ${TMPDIR}
