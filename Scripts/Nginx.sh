@@ -1,11 +1,14 @@
 #!/bin/bash
+
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root!"
    exit 1
 fi
 
 NGINX_VER="1.20.2"
-OPENSSL_VER=""
+OPENSSL_VER="" # 1.1.1m
+ZLIB_VER=""    # 1.2.11
+PCRE_VER=""    # 8.45
 
 User="www"
 Group="www"
@@ -33,23 +36,58 @@ fi
 
 
 apt-get update >> /dev/null
-apt install -y build-essential libpcre3 libpcre3-dev zlib1g-dev unzip git libssl-dev wget
-wget --no-check-certificate https://nginx.org/download/nginx-${NGINX_VER}.tar.gz && tar xzf nginx-${NGINX_VER}.tar.gz && rm -rf nginx-${NGINX_VER}.tar.gz
+apt-get install -y build-essential git wget
+
+wget --no-check-certificate https://nginx.org/download/nginx-${NGINX_VER}.tar.gz && \
+    tar xzf nginx-${NGINX_VER}.tar.gz && \
+    rm -rf nginx-${NGINX_VER}.tar.gz
 cd nginx-${NGINX_VER}/
-git clone https://github.com/google/ngx_brotli.git
-cd ngx_brotli && git submodule update --init && cd ../
+
+git clone https://github.com/google/ngx_brotli.git && \
+    cd ngx_brotli && \
+    git submodule update --init && \
+    Configure_Options="${Configure_Options} --add-module=ngx_brotli" && \
+    cd ../
+
+if [ -z "${PCRE_VER}" ]
+then
+    echo "Using default libpcre3-dev..."
+    apt-get install libpcre3-dev
+else
+    wget --no-check-certificate https://nchc.dl.sourceforge.net/project/pcre/pcre/${PCRE_VER}/pcre-${PCRE_VER}.tar.gz && \
+        tar -xzvf pcre-${PCRE_VER}.tar.gz && \
+        rm -rf pcre-${PCRE_VER}.tar.gz && \
+        Configure_Options="${Configure_Options} --with-pcre=pcre-${PCRE_VER}" && \
+        echo "Using PCRE ${PCRE_VER}..."
+fi
+
+if [ -z "${ZLIB_VER}" ]
+then
+    echo "Using default zlib1g-dev..."
+    apt-get install zlib1g-dev
+else
+    wget --no-check-certificate https://zlib.net/zlib-${ZLIB_VER}.tar.gz && \
+        tar -xzvf zlib-${ZLIB_VER}.tar.gz && \
+        rm -rf zlib-${ZLIB_VER}.tar.gz && \
+        Configure_Options="${Configure_Options} --with-zlib=zlib-${ZLIB_VER}" && \
+        echo "Using zlib ${ZLIB_VER}..."
+fi
 
 if [ -z "${OPENSSL_VER}" ]
 then
     echo "Using default libssl-dev..."
-    ./configure ${Configure_Options} --add-module=./ngx_brotli
+    apt-get install libssl-dev
 else
-    echo "Using Openssl ${OPENSSL_VER}..."
-    wget --no-check-certificate https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz && tar xzf openssl-${OPENSSL_VER}.tar.gz && rm -rf openssl-${OPENSSL_VER}.tar.gz
-    ./configure ${Configure_Options} --with-openssl=openssl-${OPENSSL_VER} --add-module=./ngx_brotli
+    wget --no-check-certificate https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz && \
+        tar -xzvf openssl-${OPENSSL_VER}.tar.gz && \
+        rm -rf openssl-${OPENSSL_VER}.tar.gz && \
+        Configure_Options="${Configure_Options} --with-openssl=openssl-${OPENSSL_VER}" && \
+        echo "Using Openssl ${OPENSSL_VER}..."
 fi
 
+# Configure_Options="${Configure_Options} --with-cc-opt=\"-static -static-libgcc\" --with-ld-opt=\"-static\""
 
+./configure ${Configure_Options}
 make -j$(nproc)
 
 if [ -f "/usr/local/nginx/conf/nginx.conf" ]; then
