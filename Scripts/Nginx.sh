@@ -85,7 +85,7 @@ else
         echo "Using Openssl ${OPENSSL_VER}..."
 fi
 
-# Configure_Options="${Configure_Options} --with-cc-opt=\"-static -static-libgcc\" --with-ld-opt=\"-static\""
+# Configure_Options="${Configure_Options} --with-cc-opt=-static --with-cc-opt=-static-libgcc --with-ld-opt=-static"
 
 ./configure ${Configure_Options}
 make -j$(nproc)
