@@ -9,7 +9,7 @@ chmod 700 ~/.ssh
 chmod 644 ~/.ssh/authorized_keys
 
 echo -e "set mouse-=a
-set number
+
 \" Highlighting
 syntax on
 colorscheme slate
