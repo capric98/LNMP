@@ -16,4 +16,7 @@ colorscheme slate
 \" Remember Cursor
 if has(\"autocmd\")
   au BufReadPost * if line(\"'\\\"\") > 1 && line(\"'\\\"\") <= line(\"$\") | exe \"normal! g'\\\"\" | endif
-endif" > ~/.vimrc
+endif
+\" Sudo Save
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+" > ~/.vimrc
