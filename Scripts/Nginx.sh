@@ -5,8 +5,8 @@ if [[ $EUID -ne 0 ]]; then
     exit 1
 fi
 
-NGINX_VER="1.20.2"
-OPENSSL_VER="" # 1.1.1m
+NGINX_VER="1.22.1"
+OPENSSL_VER="" # 1.1.1s
 ZLIB_VER=""    # 1.2.11
 PCRE_VER=""    # 8.45
 
