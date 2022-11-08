@@ -112,7 +112,7 @@ else
     ln -s /usr/local/nginx/sbin/nginx /usr/sbin/nginx
     ln -s /usr/local/nginx/sbin/nginx /sbin/nginx
 
-    mkdir -p /usr/local/nginx/conf/vhost
+    mkdir -p /usr/local/nginx/conf/sites-enabled
     mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.default
     cp ${Basepath}/../Config/nginx.conf /usr/local/nginx/conf/
     cp ${Basepath}/../Config/nginx.service /lib/systemd/system/nginx.service
