@@ -52,7 +52,7 @@ git clone https://github.com/google/ngx_brotli.git && \
 if [ -z "${PCRE_VER}" ]
 then
     echo "Using default libpcre3-dev..."
-    apt-get install libpcre3-dev
+    apt-get install -y libpcre3-dev
 else
     wget --no-check-certificate https://nchc.dl.sourceforge.net/project/pcre/pcre/${PCRE_VER}/pcre-${PCRE_VER}.tar.gz && \
         tar -xzvf pcre-${PCRE_VER}.tar.gz && \
@@ -64,7 +64,7 @@ fi
 if [ -z "${ZLIB_VER}" ]
 then
     echo "Using default zlib1g-dev..."
-    apt-get install zlib1g-dev
+    apt-get install -y zlib1g-dev
 else
     wget --no-check-certificate https://zlib.net/zlib-${ZLIB_VER}.tar.gz && \
         tar -xzvf zlib-${ZLIB_VER}.tar.gz && \
