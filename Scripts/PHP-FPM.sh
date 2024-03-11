@@ -6,17 +6,15 @@ fi
 
 Basepath=$(cd `dirname $0`; pwd)
 apt-get install -y apt-transport-https ca-certificates lsb-release
-wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
+apt-key adv --fetch-keys 'https://packages.sury.org/php/apt.gpg' > /dev/null 2>&1
 
 apt-get update >> /dev/null
-PHP_VER=7.4
+PHP_VER=8.2
 
 echo "Installing PHP-FPM ${PHP_VER}..."
 apt install -y php${PHP_VER}-fpm php${PHP_VER}-common \
     php${PHP_VER}-curl \
     php${PHP_VER}-gd \
-    php${PHP_VER}-json \
     php${PHP_VER}-mbstring \
     php${PHP_VER}-mysql \
     php${PHP_VER}-opcache \
